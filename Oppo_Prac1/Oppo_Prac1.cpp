@@ -2,42 +2,110 @@
 //
 
 #include <iostream>
+#include <iomanip>
 #include <fstream>
 #include <vector>
 #include <string>
+#include <cstring>
 using namespace std;
 
-struct	zanyatia
+class zanyatia
 {
+private:
 	string data;
 	string aud;
 	string name;
+public:
+	zanyatia(string data = "", string aud = "", string name = "");
+	~zanyatia();
+	void load_txt(istream& ist);
+	static void print_table_head(ostream& ost);
+	void print_table_row(ostream& ost) const;
 };
+zanyatia::zanyatia(string data, string aud, string name) 
+{
+	this->data = data;
+	this->aud = aud;
+	this->name = name;
+}
+zanyatia::~zanyatia()
+{
+}
+
+void zanyatia::load_txt(istream& ist)
+{
+	string buf_data;
+	string buf_aud;
+	string buf_name;
+	ist >> buf_data;
+	ist >> buf_aud;
+	ist >> buf_name;
+	data = buf_data;
+	aud = buf_aud;
+	name = buf_name;
+}
+
+void zanyatia::print_table_head(ostream& ost)
+{
+	cout << setw(20) << left << "Дата" << setw(20) << "|Аудитория" << setw(30) << "|Фамилия"<< endl;
+	cout << "---------------------------------------------------------------------------------------------------------------" << endl;
+	cout << endl;
+}
+
+void zanyatia::print_table_row(ostream& ost) const
+{
+	cout << setw(20) << data;
+	cout << setw(20) << aud;
+	cout << setw(30) << name << endl;
+}
+
+size_t load_txt(vector<zanyatia*>& spisoc, istream& ist)
+{
+	int cnt = 0;
+	while (!ist.eof())
+	{
+		zanyatia* den = new zanyatia;
+		den->load_txt(ist);
+		spisoc.push_back(den);
+		cnt++;
+	}
+	return cnt;
+}
+
+size_t print_table(const vector<zanyatia*>& spisoc, ostream& ost)
+{
+	spisoc[0]->print_table_head(ost);
+	int len = size(spisoc);
+	for (int i = 0; i < size(spisoc); i++)
+	{
+		spisoc[i]->print_table_row(ost);
+	}
+	return len;
+}
+
+void clear_memory(vector<zanyatia*>& data)
+{
+	for (int i = 0; i < size(data); i++)
+	{
+		delete data[i];
+	}
+}
 
 int main()
 {
-	ifstream in;
-	in.open("test.txt.txt");
-	if (!in.is_open())
+	setlocale(LC_ALL, "Rus");
+	vector< zanyatia* > spisoc;
+	ifstream ist;
+	ist.open("in.txt");
+	if (ist.is_open() == false)
 	{
-		cout << "file no open";
+		cout << "Файл не найден\n";
 		return 1;
 	}
-	vector< zanyatia > spisoc;
-	while (!in.eof())
-	{
-		zanyatia bank;
-		in >> bank.data;
-		in >> bank.aud;
-		in >> bank.name;
-		spisoc.push_back(bank);
-	}
-	for (int i = 0; i < spisoc.size(); i++)
-	{
-		cout << spisoc[i].data << " ";
-		cout << spisoc[i].aud << " ";
-		cout << spisoc[i].name << endl;
-	}
+	load_txt(spisoc, ist);
+	ist.close();
+	print_table(spisoc, cout);
+	clear_memory(spisoc);
 	return 0;
 }
 
