@@ -1,12 +1,12 @@
 ﻿#include "zanyatia.h"
 #include "data.h"
 
-size_t load_txt(vector<Zanyatia*>& spisoc, istream& ist)
+size_t LoadTxt(vector<Zanyatia*>& spisoc, istream& ist)
 {
 	int cnt = 0;
 	while (!ist.eof()) {
 		Zanyatia* den = new Zanyatia;
-		den->load_txt(ist);
+		den->LoadTxt(ist);
 		spisoc.push_back(den);
 		cnt++;
 	}
@@ -32,7 +32,7 @@ int main(){
 		cout << "Файл не найден\n";
 		return 1;
 	}
-	load_txt(spisoc, ist);
+	LoadTxt(spisoc, ist);
 	ist.close();
 	PrintTable(spisoc, cout);
 	return 0;

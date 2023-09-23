@@ -15,7 +15,7 @@ private:
 	Data date_;
 public:
 	Zanyatia(string aud_ = "", string name_ = "");
-	void load_txt(istream& ist);
+	void LoadTxt(istream& ist);
 	static void PrintTableHead(ostream& ost);
 	void PrintTableRow(ostream& ost) const;
 };

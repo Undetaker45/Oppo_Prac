@@ -6,7 +6,7 @@ Zanyatia::Zanyatia(string aud, string name) {
 	this->name_ = name;
 }
 
-void Zanyatia::load_txt(istream& ist) {
+void Zanyatia::LoadTxt(istream& ist) {
 	date_.ReadDate(ist);
 	string buf_aud;
 	string buf_name;
