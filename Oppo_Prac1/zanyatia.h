@@ -8,7 +8,7 @@
 #include "data.h"
 using namespace std;
 
-class Zanyatia {
+class Zanyatia{
 private:
 	string aud_;
 	string name_;
