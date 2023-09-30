@@ -4,7 +4,7 @@
 size_t LoadTxt(vector<Zanyatia*>& spisoc, istream& ist)
 {
 	int cnt = 0;
-	while (!ist.eof()) {
+	while (!ist.eof()){
 		Zanyatia* den = new Zanyatia;
 		den->LoadTxt(ist);
 		spisoc.push_back(den);
@@ -13,10 +13,10 @@ size_t LoadTxt(vector<Zanyatia*>& spisoc, istream& ist)
 	return cnt;
 }
 
-size_t PrintTable(const vector<Zanyatia*>& spisoc, ostream& ost) {
+size_t PrintTable(const vector<Zanyatia*>& spisoc, ostream& ost){
 	spisoc[0]->PrintTableHead(ost);
 	int len = size(spisoc);
-	for (int i = 0; i < size(spisoc); i++) {
+	for (int i = 0; i < size(spisoc); i++){
 		spisoc[i]->PrintTableRow(ost);
 	}
 	return len;
@@ -32,7 +32,13 @@ int main(){
 		cout << "Файл не найден\n";
 		return 1;
 	}
-	LoadTxt(spisoc, ist);
+	try {
+		LoadTxt(spisoc, ist);
+	}
+	catch (const std::invalid_argument& e)
+	{
+		cout << e.what() << endl;
+	}
 	ist.close();
 	PrintTable(spisoc, cout);
 	return 0;

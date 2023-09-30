@@ -3,6 +3,8 @@
 #include <iomanip>
 #include <fstream>
 #include <string>
+#include <stdlib.h>
+#include <stdexcept>
 using namespace std;
 class Data{
 private:
