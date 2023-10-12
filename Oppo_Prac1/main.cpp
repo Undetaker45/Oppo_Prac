@@ -39,6 +39,10 @@ int main(){
 	{
 		cout << e.what() << endl;
 	}
+	catch (const std::runtime_error& e)
+	{
+		cout << e.what() << endl;
+	}
 	ist.close();
 	PrintTable(spisoc, cout);
 	return 0;

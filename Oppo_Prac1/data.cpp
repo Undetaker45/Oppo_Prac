@@ -42,7 +42,13 @@ void Data::ReadDate(istream& ist){
 		cout << "Ошибка в формате даты" << endl;
 		throw e;
 	}
-	CheckDate(in_buf_year, in_buf_mounf, in_buf_day);
+	try {
+		CheckDate(in_buf_year, in_buf_mounf, in_buf_day);
+	}
+	catch (const std::runtime_error& e) 
+	{
+		throw e;
+	}
 	day_ = in_buf_day;
 	mounf_ = in_buf_mounf;
 	year_ = in_buf_year;
