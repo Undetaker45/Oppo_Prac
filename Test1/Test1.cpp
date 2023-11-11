@@ -68,7 +68,7 @@ namespace TestCore {
 			Zanyatia Aud;
 			std::string TextError = "Ошибка при чтении аудитории.";
 			try {
-				std::string textToCheck = "";
+				std::string textToCheck = "2015.12.22  ";
 				std::istringstream istStr(textToCheck);
 				Aud.LoadTxt(istStr);
 			}
@@ -83,7 +83,7 @@ namespace TestCore {
 			Zanyatia Prepod;
 			std::string TextError = "Ошибка при чтении преподавателя.";
 			try {
-				std::string textToCheck = "";
+				std::string textToCheck = "2015.12.22 214  ";
 				std::istringstream istStr(textToCheck);
 				Prepod.LoadTxt(istStr);
 			}

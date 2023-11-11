@@ -42,7 +42,7 @@ void Data::ReadDate(istream& ist){
 		throw e;
 		return;
 	}
-	if (year_ < 1951 || year_ > 2123) {
+	if (year_ < 1 || year_ > 2123) {
 		throw (std::runtime_error("Указанный год находиться за границами допустимых."));
 	}
 	if (!CheckDate()) {
