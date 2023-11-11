@@ -44,6 +44,7 @@ void Data::ReadDate(istream& ist){
 	}
 	if (year_ < 1 || year_ > 2123) {
 		throw (std::runtime_error("Указанный год находиться за границами допустимых."));
+		return;
 	}
 	if (!CheckDate()) {
 		throw (std::runtime_error("Неправильный формат даты."));

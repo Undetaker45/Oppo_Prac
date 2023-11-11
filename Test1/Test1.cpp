@@ -12,7 +12,7 @@ namespace TestCore {
 		TEST_METHOD(Test1)
 		{
 			const auto func = [] {
-				auto sin = std::istringstream{ "2005.. " };
+				auto sin = std::istringstream{ "2007.. " };
 				Data date;  date.ReadDate(sin);
 			};
 			Assert::ExpectException<std::runtime_error>(func);
@@ -30,7 +30,7 @@ namespace TestCore {
 		TEST_METHOD(Test3)
 		{
 			const auto func = [] {
-				auto sin = std::istringstream{ "500.02.29 124 Fedow" };
+				auto sin = std::istringstream{ "666.02.29 124 Fedow" };
 				Data date;  date.ReadDate(sin);
 			};
 			Assert::ExpectException<std::runtime_error>(func);
@@ -39,7 +39,7 @@ namespace TestCore {
 		TEST_METHOD(Test4)
 		{
 			const auto func = [] {
-				auto sin = std::istringstream{ "0.05.2 124 Fedow" };
+				auto sin = std::istringstream{ "0.07.3 124 Fedow" };
 				Data date;  date.ReadDate(sin);
 			};
 			Assert::ExpectException<std::runtime_error>(func);

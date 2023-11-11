@@ -76,12 +76,12 @@ void Zanyatia::LoadTxt(istream& ist){
 	name_ = buf_name;
 	if (!CheckingValidNameAud())
 	{
-		throw std::runtime_error("Ошибка, в названии аудитории используются запрещённые символы");
+		throw std::runtime_error("Ошибка, в названии аудитории используются запрещённые для данного поля символы");
 		return;
 	}
 	if (!CheckingValidNameName())
 	{
-		throw std::runtime_error("Ошибка, в фамилии преподавателя используются запрещённые символы");
+		throw std::runtime_error("Ошибка, в фамилии преподавателя используются запрещённые для данного поля символы");
 		return;
 	}
 }
