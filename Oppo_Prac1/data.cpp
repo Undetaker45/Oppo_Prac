@@ -1,57 +1,54 @@
-#include "data.h"
+Ôªø#include "data.h"
 
 Data::Data(int day, int mounf, int year){
 	this->day_ = day;
 	this->mounf_ = mounf;
 	this->year_ = year;
 }
-void CheckDate(int in_buf_year, int in_buf_mounf, int in_buf_day){
-	if ((in_buf_mounf == 1 || in_buf_mounf == 3 || in_buf_mounf == 5 || in_buf_mounf == 7 || in_buf_mounf == 8 || in_buf_mounf == 10 || in_buf_mounf == 12) && in_buf_day > 31 && in_buf_day < 1) {
-		throw (std::runtime_error("Œ¯Ë·Í‡ ‚ ÔÓÎÂ ‰ÂÌ¸"));
+bool Data::CheckDate(){
+	if ((mounf_ == 1 || mounf_ == 3 || mounf_ == 5 || mounf_ == 7 || mounf_ == 8 || mounf_ == 10 || mounf_ == 12) && day_ > 31 && day_ < 1) {
+		return false;
 	}
-	if ((in_buf_mounf == 4 || in_buf_mounf == 6 || in_buf_mounf == 9 || in_buf_mounf == 11) && in_buf_day > 30 && in_buf_day < 1) {
-		throw (std::runtime_error("Œ¯Ë·Í‡ ‚ ÔÓÎÂ ‰ÂÌ¸"));
+	if ((mounf_ == 4 || mounf_ == 6 || mounf_ == 9 || mounf_ == 11) && day_ > 30 && day_ < 1) {
+		return false;
 	}
-	if (in_buf_mounf == 2) {
-		if ((in_buf_year % 4 == 0 && in_buf_year % 100 != 0 && in_buf_year % 400 == 0) && in_buf_day > 29 && in_buf_day < 1) {
-			throw (std::runtime_error("Œ¯Ë·Í‡ ‚ ‰‡ÚÂ ‚ÂÒÓÍÓÒÌÓ„Ó „Ó‰‡"));
+	if (mounf_ == 2) {
+		if ((year_ % 4 == 0 && year_ % 100 != 0 && year_ % 400 == 0) && day_ > 29 && day_ < 1) {
+			return false;
 		}
-		else if (in_buf_day > 28) {
-			throw (std::runtime_error("Œ¯Ë·Í‡ ‚ ÔÓÎÂ ‰ÂÌ¸"));
+		else if (day_ > 28) {
+			return false;
 		}
 	}
-	if (in_buf_mounf > 12 || in_buf_mounf < 1) {
-		throw (std::runtime_error("Œ¯Ë·Í‡ ‚ ÔÓÎÂ ÏÂÒˇˆ"));
+	if (mounf_ > 12 || mounf_ < 1) {
+		return false;
 	}
-	if (in_buf_year < 1951 && in_buf_year > 2123) {
-		throw (std::runtime_error("Œ¯Ë·Í‡ ‚ ÔÓÎÂ „Ó‰"));
-	}
+
+	return true;
 }
 
 void Data::ReadDate(istream& ist){
-	string buf, bez_tohek;
-	ist >> buf;
-	bez_tohek = buf.substr(0, 4) + buf.substr(5, 7) + buf.substr(8, 9);
-	int in_buf_day, in_buf_mounf, in_buf_year;
+	string buf;
+	ist >> buf; 
 	try {
-		in_buf_year = stoi(buf.substr(0, 4));
-		in_buf_mounf = stoi(buf.substr(5, 7));
-		in_buf_day = stoi(buf.substr(8, 9));
+		int PositionMonth = buf.find_first_of('.');
+		int PositionDay = buf.find_first_of('.', PositionMonth + 1);
+		year_ = stoi(buf.substr(0, PositionMonth));
+		mounf_ = stoi(buf.substr(PositionMonth+1, (PositionDay - PositionMonth -1)));
+		day_ = stoi(buf.substr(PositionDay+1));
 	}
 	catch (const std::invalid_argument& e) {
-		cout << "Œ¯Ë·Í‡ ‚ ÙÓÏ‡ÚÂ ‰‡Ú˚" << endl;
+		cout << "–û—à–∏–±–∫–∞ –≤ —Ñ–æ—Ä–º–∞—Ç–µ –¥–∞—Ç—ã" << endl;
 		throw e;
+		return;
 	}
-	try {
-		CheckDate(in_buf_year, in_buf_mounf, in_buf_day);
+	if (year_ < 1951 || year_ > 2123) {
+		throw (std::runtime_error("–£–∫–∞–∑–∞–Ω–Ω—ã–π –≥–æ–¥ –Ω–∞—Ö–æ–¥–∏—Ç—å—Å—è –∑–∞ –≥—Ä–∞–Ω–∏—Ü–∞–º–∏ –¥–æ–ø—É—Å—Ç–∏–º—ã—Ö."));
 	}
-	catch (const std::runtime_error& e) 
-	{
-		throw e;
+	if (!CheckDate()) {
+		throw (std::runtime_error("–ù–µ–ø—Ä–∞–≤–∏–ª—å–Ω—ã–π —Ñ–æ—Ä–º–∞—Ç –¥–∞—Ç—ã."));
+		return;
 	}
-	day_ = in_buf_day;
-	mounf_ = in_buf_mounf;
-	year_ = in_buf_year;
 }
 
 void Data::PrintDate(ostream& ost) const{

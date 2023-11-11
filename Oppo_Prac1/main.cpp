@@ -6,7 +6,18 @@ size_t LoadTxt(vector<Zanyatia*>& spisoc, istream& ist)
 	int cnt = 0;
 	while (!ist.eof()){
 		Zanyatia* den = new Zanyatia;
-		den->LoadTxt(ist);
+		try {
+			den->LoadTxt(ist);
+		}
+		catch (const std::runtime_error& e){
+			cout << e.what() << endl << endl;
+			continue;
+		}
+		catch (const std::invalid_argument& e)
+		{
+			cout << e.what() << endl << endl;
+			continue;
+		}
 		spisoc.push_back(den);
 		cnt++;
 	}
@@ -14,8 +25,10 @@ size_t LoadTxt(vector<Zanyatia*>& spisoc, istream& ist)
 }
 
 size_t PrintTable(const vector<Zanyatia*>& spisoc, ostream& ost){
-	spisoc[0]->PrintTableHead(ost);
 	int len = size(spisoc);
+	if (len != 0) {
+		spisoc[0]->PrintTableHead(ost);
+	}
 	for (int i = 0; i < size(spisoc); i++){
 		spisoc[i]->PrintTableRow(ost);
 	}
@@ -39,11 +52,13 @@ int main(){
 	{
 		cout << e.what() << endl;
 	}
-	catch (const std::runtime_error& e)
+	catch (const std::runtime_error& f)
 	{
-		cout << e.what() << endl;
+		cout << f.what() << endl;
 	}
 	ist.close();
+	if (spisoc.empty())
+		cout << "Пустой";
 	PrintTable(spisoc, cout);
 	return 0;
 }
