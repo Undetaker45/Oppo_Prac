@@ -6,18 +6,7 @@ size_t LoadTxt(vector<Zanyatia*>& spisoc, istream& ist)
 	int cnt = 0;
 	while (!ist.eof()){
 		Zanyatia* den = new Zanyatia;
-		try {
-			den->LoadTxt(ist);
-		}
-		catch (const std::runtime_error& e){
-			cout << e.what() << endl << endl;
-			continue;
-		}
-		catch (const std::invalid_argument& e)
-		{
-			cout << e.what() << endl << endl;
-			continue;
-		}
+		den->LoadTxt(ist);
 		spisoc.push_back(den);
 		cnt++;
 	}
@@ -45,20 +34,20 @@ int main(){
 		cout << "Файл не найден\n";
 		return 1;
 	}
+	int cnt;
 	try {
-		LoadTxt(spisoc, ist);
+		cnt = LoadTxt(spisoc, ist);
 	}
 	catch (const std::invalid_argument& e)
 	{
-		cout << e.what() << endl;
+		cout << "Ошибка на " << cnt << " сточке";
+
 	}
 	catch (const std::runtime_error& f)
 	{
-		cout << f.what() << endl;
+		cout << "Ошибка на " << cnt << " сточке";
 	}
 	ist.close();
-	if (spisoc.empty())
-		cout << "Пустой";
 	PrintTable(spisoc, cout);
 	return 0;
 }

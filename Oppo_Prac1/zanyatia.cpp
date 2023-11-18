@@ -54,15 +54,7 @@ bool Zanyatia::CheckingValidNameName()
 }
 
 void Zanyatia::LoadTxt(istream& ist){
-	try {
-		date_.ReadDate(ist);
-	}
-	catch (const std::invalid_argument& e) {
-		cout << e.what() << endl << endl;
-	}
-	catch (const std::runtime_error& e) {
-		cout << e.what() << endl << endl;
-	}
+	date_.ReadDate(ist);
 	string buf_aud;
 	string buf_name;
 	try {
@@ -70,19 +62,18 @@ void Zanyatia::LoadTxt(istream& ist){
 		ist >> buf_name;
 	}
 	catch (const std::runtime_error& e) {
-		cout << e.what() << endl << endl;
+		throw std::runtime_error("Ошибка при чтении полей аудитории и фамилии преподавателя");
+
 	}
 	aud_ = buf_aud;
 	name_ = buf_name;
 	if (!CheckingValidNameAud())
 	{
 		throw std::runtime_error("Ошибка, в названии аудитории используются запрещённые для данного поля символы");
-		return;
 	}
 	if (!CheckingValidNameName())
 	{
 		throw std::runtime_error("Ошибка, в фамилии преподавателя используются запрещённые для данного поля символы");
-		return;
 	}
 }
 

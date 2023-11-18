@@ -39,7 +39,7 @@ namespace TestCore {
 		TEST_METHOD(Test4)
 		{
 			const auto func = [] {
-				auto sin = std::istringstream{ "0.07.3 124 Fedow" };
+				auto sin = std::istringstream{ "0.07. 124 Fedow" };
 				Data date;  date.ReadDate(sin);
 			};
 			Assert::ExpectException<std::runtime_error>(func);
@@ -84,6 +84,66 @@ namespace TestCore {
 			std::string TextError = "Ошибка при чтении преподавателя.";
 			try {
 				std::string textToCheck = "2015.12.22 214  ";
+				std::istringstream istStr(textToCheck);
+				Prepod.LoadTxt(istStr);
+			}
+			catch (const std::runtime_error& e)
+			{
+				Assert::AreEqual(TextError.c_str(), e.what());
+			}
+		}
+		
+		TEST_METHOD(CorrectAud1)
+		{
+			Zanyatia aud;
+			std::string TextError = "Ошибка в определении запрещенных символов в поле аудитории.";
+			try {
+				std::string textToCheck = "2015.12.22 !214 daty";
+				std::istringstream istStr(textToCheck);
+				aud.LoadTxt(istStr);
+			}
+			catch (const std::runtime_error& e)
+			{
+				Assert::AreEqual(TextError.c_str(), e.what());
+			}
+		}
+
+		TEST_METHOD(CorrectAud2)
+		{
+			Zanyatia aud;
+			std::string TextError = "Ошибка в определении запрещенных символов в поле аудитории.";
+			try {
+				std::string textToCheck = "2015.12.22 d214 daty";
+				std::istringstream istStr(textToCheck);
+				aud.LoadTxt(istStr);
+			}
+			catch (const std::runtime_error& e)
+			{
+				Assert::AreEqual(TextError.c_str(), e.what());
+			}
+		}
+
+		TEST_METHOD(CorrectPrepod1)
+		{
+			Zanyatia Prepod;
+			std::string TextError = "Ошибка в определении запрещенных символов в поле фамилии.";
+			try {
+				std::string textToCheck = "2015.12.22 D214 !daty";
+				std::istringstream istStr(textToCheck);
+				Prepod.LoadTxt(istStr);
+			}
+			catch (const std::runtime_error& e)
+			{
+				Assert::AreEqual(TextError.c_str(), e.what());
+			}
+		}
+
+		TEST_METHOD(CorrectPrepod2)
+		{
+			Zanyatia Prepod;
+			std::string TextError = "Ошибка в определении запрещенных символов в поле фамилии.";
+			try {
+				std::string textToCheck = "2015.12.22 D214 1daty";
 				std::istringstream istStr(textToCheck);
 				Prepod.LoadTxt(istStr);
 			}

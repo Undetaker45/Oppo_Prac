@@ -38,17 +38,13 @@ void Data::ReadDate(istream& ist){
 		day_ = stoi(buf.substr(PositionDay+1));
 	}
 	catch (const std::invalid_argument& e) {
-		cout << "Ошибка в формате даты" << endl;
 		throw e;
-		return;
 	}
 	if (year_ < 1 || year_ > 2123) {
 		throw (std::runtime_error("Указанный год находиться за границами допустимых."));
-		return;
 	}
 	if (!CheckDate()) {
 		throw (std::runtime_error("Неправильный формат даты."));
-		return;
 	}
 }
 

@@ -1,0 +1,22 @@
+class Data{
+-int day_
+-int mounf_
+-int year_
++void ReadDate()
++void PrintDate() const
++void SetDate()
++bool CheckDate()
+}
+
+class Zanyatia{
+-string aud_;
+-string name_;
+-Data date_;
++void LoadTxt();
++static void PrintTableHead()
++void PrintTableRow() const
++bool FindAllowedSourceChar()
++bool FindAllowedSourceCharFamily()
++bool CheckingValidNameAud()
++bool CheckingValidNameName()
+}
