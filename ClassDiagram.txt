@@ -1,3 +1,5 @@
+@startuml
+
 class Data{
 -int day_
 -int mounf_
@@ -9,10 +11,10 @@ class Data{
 }
 
 class Zanyatia{
--string aud_;
--string name_;
--Data date_;
-+void LoadTxt();
+-string aud_
+-string name_
+-Data date_
++void LoadTxt()
 +static void PrintTableHead()
 +void PrintTableRow() const
 +bool FindAllowedSourceChar()
@@ -20,3 +22,7 @@ class Zanyatia{
 +bool CheckingValidNameAud()
 +bool CheckingValidNameName()
 }
+
+Zanyatia *-- Data
+
+@enduml
