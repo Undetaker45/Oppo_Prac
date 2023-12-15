@@ -1,40 +1,61 @@
-﻿#include "zanyatia.h"
+﻿// This is a personal academic project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: https://pvs-studio.com
+#define _CRTDBG_MAP_ALLOC
+#include <cstdlib>
+#include <crtdbg.h>
+
+#ifdef _DEBUG
+#define new new ( _NORMAL_BLOCK , FILE , LINE )
+#endif
+
+#include "zanyatia.h"
 #include "data.h"
 
-size_t LoadTxt(vector<Zanyatia*>& spisoc, istream& ist)
+size_t LoadTxt(vector<Zanyatia>& spisoc, istream& ist)
 {
 	int cnt = 0;
-	while (!ist.eof()){
-		Zanyatia* den = new Zanyatia;
-		den->LoadTxt(ist);
+	while (!ist.eof() && ist.good()) {
+		Zanyatia den;
+		den.LoadTxt(ist);
 		spisoc.push_back(den);
 		cnt++;
 	}
 	return cnt;
 }
 
-size_t PrintTable(const vector<Zanyatia*>& spisoc, ostream& ost){
+size_t PrintTable(const vector<Zanyatia>& spisoc, ostream& ost) {
 	int len = size(spisoc);
 	if (len != 0) {
-		spisoc[0]->PrintTableHead(ost);
+		spisoc[0].PrintTableHead(ost);
 	}
-	for (int i = 0; i < size(spisoc); i++){
-		spisoc[i]->PrintTableRow(ost);
+	for (int i = 0; i < size(spisoc); i++) {
+		spisoc[i].PrintTableRow(ost);
 	}
 	return len;
 }
 
-int main(){
+void CheckMemoryLeaks() {
+	//_CrtSetReportMode(_CRT_WARN, _CRTDBG_MODE_FILE);
+	//_CrtSetReportFile(_CRT_WARN, _CRTDBG_FILE_STDOUT);
+	//_CrtSetReportMode(_CRT_ERROR, _CRTDBG_MODE_FILE);
+	//_CrtSetReportMode(_CRT_ERROR, _CRTDBG_FILE_STDOUT);
+	//_CrtSetReportMode(_CRT_ASSERT, _CRTDBG_MODE_FILE);
+	//_CrtSetReportMode(_CRT_ASSERT, _CRTDBG_FILE_STDOUT);
+	_CrtDumpMemoryLeaks();
+}
+
+int main() {
+	atexit(CheckMemoryLeaks);
 	setlocale(LC_ALL, "Rus");
-	vector< Zanyatia* > spisoc;
+	vector< Zanyatia > spisoc;
 	ifstream ist;
+	int cnt = 1;
 	ist.open("in.txt");
 	if (ist.is_open() == false)
 	{
 		cout << "Файл не найден\n";
 		return 1;
 	}
-	int cnt;
 	try {
 		cnt = LoadTxt(spisoc, ist);
 	}
@@ -49,6 +70,7 @@ int main(){
 	}
 	ist.close();
 	PrintTable(spisoc, cout);
+	spisoc.clear();
 	return 0;
 }
 

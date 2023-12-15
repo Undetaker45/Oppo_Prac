@@ -1,3 +1,5 @@
+// This is a personal academic project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: https://pvs-studio.com
 #include "pch.h"
 #include "..\Oppo_Prac1\data.h"
 #include "..\Oppo_Prac1\zanyatia.h"
