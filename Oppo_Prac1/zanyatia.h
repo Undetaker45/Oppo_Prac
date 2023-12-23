@@ -19,7 +19,7 @@ private:
 	static constexpr char allowedCharactersFamily[] = "QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm ";
 public:
 	friend class Test1;
-	Zanyatia(string aud_ = "", string name_ = "");
+	explicit Zanyatia(static string aud_ = "", static string name_ = "");
 	void LoadTxt(istream& ist);
 	static void PrintTableHead(ostream& ost);
 	void PrintTableRow(ostream& ost) const;

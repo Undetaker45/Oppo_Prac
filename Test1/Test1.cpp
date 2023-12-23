@@ -11,7 +11,7 @@ namespace TestCore {
 	{
 	public:
 
-		TEST_METHOD(Test1)
+		TEST_METHOD(TestData1)
 		{
 			const auto func = [] {
 				auto sin = std::istringstream{ "2007.. " };
@@ -20,7 +20,7 @@ namespace TestCore {
 			Assert::ExpectException<std::runtime_error>(func);
 		}
 
-		TEST_METHOD(Test2)
+		TEST_METHOD(TestData2)
 		{
 			const auto func = [] {
 				auto sin = std::istringstream{ "\n" };
@@ -29,7 +29,7 @@ namespace TestCore {
 			Assert::ExpectException<std::runtime_error>(func);
 		}
 
-		TEST_METHOD(Test3)
+		TEST_METHOD(TestData3)
 		{
 			const auto func = [] {
 				auto sin = std::istringstream{ "666.02.29 124 Fedow" };
@@ -38,7 +38,7 @@ namespace TestCore {
 			Assert::ExpectException<std::runtime_error>(func);
 		}
 
-		TEST_METHOD(Test4)
+		TEST_METHOD(TestData4)
 		{
 			const auto func = [] {
 				auto sin = std::istringstream{ "0.07. 124 Fedow" };
@@ -47,7 +47,7 @@ namespace TestCore {
 			Assert::ExpectException<std::runtime_error>(func);
 		}
 
-		TEST_METHOD(TestRead5)
+		TEST_METHOD(TestRead1)
 		{
 			const auto func = [] {
 				auto sin = std::istringstream{ "1.08.32 124 Fedow" };
@@ -56,7 +56,7 @@ namespace TestCore {
 			Assert::ExpectException<std::runtime_error>(func);
 		}
 
-		TEST_METHOD(TestRead6)
+		TEST_METHOD(TestRead2)
 		{
 			const auto func = [] {
 				auto sin = std::istringstream{ "1.06.31 124 Fedow" };
@@ -65,7 +65,7 @@ namespace TestCore {
 			Assert::ExpectException<std::runtime_error>(func);
 		}
 
-		TEST_METHOD(Test7)
+		TEST_METHOD(TestRead3)
 		{
 			Zanyatia Aud;
 			std::string TextError = "Ошибка при чтении аудитории.";
@@ -80,7 +80,7 @@ namespace TestCore {
 			}
 		}
 
-		TEST_METHOD(Test8)
+		TEST_METHOD(TestRead4)
 		{
 			Zanyatia Prepod;
 			std::string TextError = "Ошибка при чтении преподавателя.";

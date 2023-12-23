@@ -15,7 +15,7 @@ private:
 	int year_;
 public:
 	friend class Test1;
-	Data(int day_ = 0, int mounf_ = 0, int year_ = 0);
+	explicit Data(static int day_ = 0, static int mounf_ = 0, static int year_ = 0);
 	void ReadDate(istream& ist);
 	void PrintDate(ostream& ost) const;
 	void SetDate(int year, int mounf, int day)
